@@ -1,8 +1,22 @@
+import BottomBar from '@/components/shared/BottomBar'
+import LeftSideBar from '@/components/shared/LeftSideBar'
+import TopBar from '@/components/shared/TopBar'
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 const RootLayout = () => {
   return (
-    <div>RootLayout</div>
+    <div className='w-100 md:flex'>
+      <TopBar />
+      <LeftSideBar />
+      
+      <section className='flex flex-1 h-full'>
+        <Outlet>
+        </Outlet>
+      </section>
+
+      <BottomBar />
+    </div>
   )
 }
 
