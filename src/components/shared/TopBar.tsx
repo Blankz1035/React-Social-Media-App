@@ -24,6 +24,7 @@ const TopBar = () => {
             width={130}
             height={325}
           />
+          ZeekGram
         </Link>
 
         <div className='flex gap-4'>
