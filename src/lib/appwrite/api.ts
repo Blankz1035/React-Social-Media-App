@@ -101,12 +101,12 @@ export async function createPost(post: INewPost) {
       // Upload file to appwrite storage
       const uploadedFile = await uploadFile(post.file[0]);
   
-      if (!uploadedFile) throw Error;
+      if (!uploadedFile) throw Error; // Should be a file uploaded.
   
       // Get file url
       const fileUrl = getFilePreview(uploadedFile.$id);
       if (!fileUrl) {
-        await deleteFile(uploadedFile.$id);
+        await deleteFile(uploadedFile.$id); // delete file if something went wrong
         throw Error;
       }
   
@@ -116,7 +116,7 @@ export async function createPost(post: INewPost) {
       // Create post
       const newPost = await databases.createDocument(
         appWriteConfig.databaseId,
-        appWriteConfig.postCollectionId,
+        appWriteConfig.postsCollectionId,
         ID.unique(),
         {
           creator: post.userId,
@@ -127,7 +127,8 @@ export async function createPost(post: INewPost) {
           tags: tags,
         }
       );
-  
+      
+      // failsafe to remove file again if something went wrong.
       if (!newPost) {
         await deleteFile(uploadedFile.$id);
         throw Error;
@@ -143,7 +144,7 @@ export async function createPost(post: INewPost) {
   export async function uploadFile(file: File) {
     try {
       const uploadedFile = await storage.createFile(
-        appwriteConfig.storageId,
+        appWriteConfig.storageId,
         ID.unique(),
         file
       );
@@ -174,4 +175,13 @@ export async function createPost(post: INewPost) {
     }
   }
 
+  // ============================== DELETE FILE
+export async function deleteFile(fileId: string) {
+    try {
+      await storage.deleteFile(appWriteConfig.storageId, fileId);
   
+      return { status: "ok" };
+    } catch (error) {
+      console.log(error);
+    }
+  }
