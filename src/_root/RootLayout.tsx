@@ -6,13 +6,12 @@ import { Outlet } from 'react-router-dom'
 
 const RootLayout = () => {
   return (
-    <div className='w-100 md:flex'>
+    <div className='w-full md:flex'>
       <TopBar />
       <LeftSideBar />
-      
+
       <section className='flex flex-1 h-full'>
-        <Outlet>
-        </Outlet>
+        <Outlet/>
       </section>
 
       <BottomBar />
