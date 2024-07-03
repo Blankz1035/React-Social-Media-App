@@ -56,3 +56,14 @@ export const multiFormatDateString = (timestamp: string = ""): string => {
 export const checkIsLiked = (likeList: string[], userId: string) => {
   return likeList.includes(userId);
 };
+
+export const getCurrentGreeting = (): string => {
+  const currentHour = new Date().getHours();
+  if (currentHour < 12) {
+      return "Good Morning";
+  } else if (currentHour < 18) {
+      return "Good Afternoon";
+  } else {
+      return "Good Evening";
+  }
+};

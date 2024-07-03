@@ -1,20 +1,22 @@
 import PostCard from '@/components/shared/PostCard';
 import Loader from '@/components/shared/loader'
+import { useUserContext } from '@/context/AuthContext';
 import { useGetRecentPosts } from '@/lib/react-query/queriesAndMutations'
+import { getCurrentGreeting } from '@/lib/utils';
 import { Models } from 'appwrite';
 import React from 'react'
 
 const Home = () => {
   const { data: posts, isPending: isPostLoading, isError: isErrorPosts} = useGetRecentPosts();
-
+  const {user } = useUserContext()
 
 
   return (
     <div className='flex flex-1'>
       <div className='home-container'>
         <div className='home-posts'>
-          <h2 className='h3-bold md:h2-bold text-left w-full'>hello</h2>
-          feed
+          <h2 className='h3-bold md:h2-bold text-left w-full'>{getCurrentGreeting()}, {user.name}!</h2>
+          What's happening...
           {isPostLoading && !posts ? (
             <Loader />
           ) : (

@@ -4,13 +4,23 @@ import Loader from "@/components/shared/loader"
 import { Input } from "@/components/ui/input"
 import useDebounce from "@/hooks/useDebounce"
 import { useGetPosts, useSearchPosts } from "@/lib/react-query/queriesAndMutations"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
+import { useInView } from "react-intersection-observer"
 
 const Explore = () => {
+  const { ref, inView } = useInView(); // infinite loading ref.
+
   const [searchValue, setSearchValue] = useState('');
   const deBounceValue = useDebounce(searchValue, 500);
   const { data: searchedPosts, isFetching: isSearchFetching }=  useSearchPosts(deBounceValue) ; 
   const { data: posts, fetchNextPage, hasNextPage} = useGetPosts();
+
+  useEffect(() =>{
+    if(inView && !searchValue) fetchNextPage();
+
+  }, [inView, searchValue])
+
 
   if(!posts){
     return (
@@ -69,6 +79,11 @@ const Explore = () => {
         ))
       }
       </div>
+      {hasNextPage && !searchValue && (
+        <div ref={ref} className="mt-10">
+          <Loader />
+        </div>
+      )}
     </div>
   )
 }
