@@ -15,7 +15,6 @@ const PostDetails = () => {
 
   return (
     <div className="post_details-container">
-      Info
       {isPending ? <Loader /> : (
         <div className="post_details-card">
           <img 

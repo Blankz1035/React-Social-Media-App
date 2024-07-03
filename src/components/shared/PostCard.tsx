@@ -48,7 +48,7 @@ const PostCard = ({post}: PostCardProps) => {
                 />
             </Link>
         </div>
-        <Link to={`/post/${post.$id}`}>
+        <Link to={`/posts/${post.$id}`}>
             <div className="small-medium lg:base-medium py-5">
                 <p className="">
                     {post.caption}
