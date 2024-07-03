@@ -26,6 +26,7 @@ Onwards and upwards!
 2. npm install.
 3. Setup environment variable file .env.local
 
+```js
 Will need the following:
 VITE_APPWRITE_PROJECT_ID = ''
 VITE_APPWRITE_URL = 'https://cloud.appwrite.io/v1'
@@ -34,8 +35,13 @@ VITE_APPWRITE_DATABASE_ID = ''
 VITE_APPWRITE_SAVES_COLLECTION_ID = ''
 VITE_APPWRITE_POSTS_COLLECTION_ID = ''
 VITE_APPWRITE_USERS_COLLECTION_ID = ''
+```
+4. Under src folder, have a file called vite-env.d.ts. Add 
 
-4. Under src folder, have a file called vite-env.d.ts. Add "/// <reference types = "vite/client" />" This is required to inform of vite local env.
+``` /// <reference types = "vite/client" /> ```
+
+This is required to inform of vite local env.
+
 5. ensure you have setup an appwrite cloud account with storage bucket, database and auth!
 
 Enjoy!
