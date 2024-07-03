@@ -21,6 +21,7 @@ import { Models } from "appwrite"
 import { useUserContext } from "@/context/AuthContext"
 import { toast, useToast } from "../ui/use-toast"
 import { useNavigate } from "react-router-dom"
+import { useCreatePost } from "@/lib/react-query/queriesAndMutations"
 
 type PostFormProps = {
     post?: Models.Document;
@@ -30,7 +31,7 @@ const PostForm = ({ post } : PostFormProps) => {
     const {mutateAsync: createPost, isPending: isLoadingCreate } = useCreatePost();
     const { user } = useUserContext();
     const { toast } = useToast();
-    const { navigate } = useNavigate();
+    const navigate = useNavigate();
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof PostValidation>>({
@@ -46,6 +47,7 @@ const PostForm = ({ post } : PostFormProps) => {
  
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof PostValidation>) {
+        console.log(values)
         const newPost = await createPost({
             ...values,
             userId: user.id
@@ -72,7 +74,7 @@ const PostForm = ({ post } : PostFormProps) => {
             <FormItem>
               <FormLabel className="shad-form_label">Caption</FormLabel>
               <FormControl>
-                <Textarea className="shad-textarea custom-scrollbar" placeholder="Describe your post..." />
+                <Textarea className="shad-textarea custom-scrollbar" placeholder="Describe your post..." {...field}/>
               </FormControl>
               <FormMessage className="shad-form_message"/>
             </FormItem>
