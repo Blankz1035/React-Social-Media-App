@@ -19,14 +19,15 @@ import FileUploader from "../shared/FileUploader"
 import { PostValidation } from "@/lib/validation"
 import { Models } from "appwrite"
 import { useUserContext } from "@/context/AuthContext"
-import { toast, useToast } from "../ui/use-toast"
+import { useToast } from "../ui/use-toast"
 import { useNavigate } from "react-router-dom"
 import { useCreatePost } from "@/lib/react-query/queriesAndMutations"
 
 type PostFormProps = {
     post?: Models.Document;
+    action: "Create" | "Update";
 }
-const PostForm = ({ post } : PostFormProps) => {
+const PostForm = ({ post, action} : PostFormProps) => {
 
     const {mutateAsync: createPost, isPending: isLoadingCreate } = useCreatePost();
     const { user } = useUserContext();
