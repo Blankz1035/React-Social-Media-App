@@ -46,6 +46,7 @@ This is required to inform of vite local env.
 
 Enjoy!
 
+Credit to: https://github.com/adrianhajdin/social_media_app
 
 # Tutorial of React + TypeScript + Vite
 
