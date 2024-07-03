@@ -58,7 +58,10 @@ const Explore = () => {
       </div>
       <div className="flex flex-wrap gap-9 w-full max-w-5xl">
         {shouldShowSearchResults ? (
-          <SearchResults />
+          <SearchResults 
+            isSearchFetching = {isSearchFetching}
+            searchedPosts = {searchedPosts}
+          />
         ) : shouldShowPosts ? (
           <p className="text-light-4">No more posts</p>
         ) : posts.pages.map((item, index) => (
