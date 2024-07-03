@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Loader from "./loader";
 
 type PostStatsProps = {
-    post: Models.Document;
+    post?: Models.Document;
     userId: string;
 }
 
@@ -17,7 +17,7 @@ const PostStats = ({ post, userId} : PostStatsProps) => {
 
     const { data: currenUser } = useGetCurrentUser();
 
-    const likesList = post.likes.map((user: Models.Document) => user.$id)
+    const likesList = post?.likes.map((user: Models.Document) => user.$id)
     const [likes, setLikes] = useState(likesList)
     const [isSaved, setIsSaved ] = useState(false)
 
@@ -42,7 +42,7 @@ const PostStats = ({ post, userId} : PostStatsProps) => {
         }
 
         setLikes(newLikes);
-        likePost({postId: post.$id, likesArray: newLikes})
+        likePost({postId: post?.$id || '', likesArray: newLikes})
 
     }
     
@@ -56,7 +56,7 @@ const PostStats = ({ post, userId} : PostStatsProps) => {
             return // stop execution
         } 
 
-        savePost({postId: post.$id, userId})
+        savePost({postId: post?.$id || '', userId})
         setIsSaved(true)
     }
 
